@@ -23,7 +23,7 @@ if ($IS_DEVELOPMENT == true) {
     } catch (Exception $ex) {
         $data['time'] = gmdate('Y-m-d H:i:s');
     }
-    return $json;
+    return $data;
     
 } else {
     
