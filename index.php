@@ -64,19 +64,12 @@ if (strpos($service, "-dev")) {
 
 //var_dump($params);
 
-// validate service ...
-switch ($service) {
-//    case 'leaderboard' :
-//        validate_get();
-//        break;
-    case 'time' :
-    case 'list' :
-    case 'save' :
-        validate_post();
-        $input = file_get_contents("php://input");
-        break;
-    default :
-        show_error(503, "503 Service Unavailable", "Invalid Service");
+// new validate service ...
+if (is_file($service . ".php")) {
+    validate_post();
+    $input = file_get_contents("php://input");    
+} else {
+    show_error(503, "503 Service Unavailable", "Invalid Service");
 }
 
 // valid service goes here ... then try 'execute service' ...
