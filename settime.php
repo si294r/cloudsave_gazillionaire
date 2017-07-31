@@ -15,7 +15,7 @@ if ($IS_DEVELOPMENT == true) {
             )
         )
     );
-    return json_decode($result);
+    return json_decode($result, true);
     
 } else {
     
