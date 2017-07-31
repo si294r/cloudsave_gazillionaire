@@ -14,13 +14,14 @@ if ($IS_DEVELOPMENT == true) {
         )
     );
 
+    $result = json_decode($result, true);
 //    $json['server_time'] = $result['server_time'];
 //    $json['update_time'] = $result['update_time'];
     
     try {
-        $json['time'] = gmdate('Y-m-d H:i:s', (time() - strtotime($result['update_time'])) + strtotime($result['server_time']));
+        $data['time'] = gmdate('Y-m-d H:i:s', (time() - strtotime($result['update_time'])) + strtotime($result['server_time']));
     } catch (Exception $ex) {
-        $json['time'] = gmdate('Y-m-d H:i:s');
+        $data['time'] = gmdate('Y-m-d H:i:s');
     }
     return $json;
     
