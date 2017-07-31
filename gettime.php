@@ -7,7 +7,8 @@ if ($IS_DEVELOPMENT == true) {
                 'http' => array(
                     'method' => 'POST',
                     'header' => 'Content-Type: application/json'. "\r\n"
-                    . 'x-api-key: ' . X_API_KEY_TOKEN . "\r\n",
+                    . 'x-api-key: ' . X_API_KEY_TOKEN . "\r\n"
+                    . 'Content-Length: ' . strlen('{}') . "\r\n",
                     'content' => '{}'
                 )
             )
