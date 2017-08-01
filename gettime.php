@@ -24,11 +24,14 @@ if ($IS_DEVELOPMENT == true) {
     } catch (Exception $ex) {
         $data['time'] = gmdate('Y-m-d H:i:s');
     }
+    $data['timestamp'] = strtotime($data['time']);
     return $data;
     
 } else {
     
-    return array("time" => gmdate('Y-m-d H:i:s'));
+    $data = array("time" => gmdate('Y-m-d H:i:s'));
+    $data['timestamp'] = strtotime($data['time']);
+    return $data;
     
 }
 
