@@ -1,8 +1,8 @@
 <?php
 
-$json = json_decode($input);
+//$json = json_decode($input);
 
-if (is_file("data/server_time.json")) {
+if ($IS_DEVELOPMENT && is_file("data/server_time.json")) {
     $content = file_get_contents("data/server_time.json");
     $data = json_decode($content, true);
 } else {
