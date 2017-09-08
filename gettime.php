@@ -1,6 +1,6 @@
 <?php
 
-$iservice = $IS_DEVELOPMENT == true ? "igettime" : "igettime-dev";
+$iservice = $IS_DEVELOPMENT == true ? "igettime-dev" : "igettime";
 
 $result = file_get_contents('http://alegrium5.alegrium.com/gazillionaire/cloudsave/?'.$iservice, null, stream_context_create(
         array(
