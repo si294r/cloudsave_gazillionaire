@@ -48,7 +48,7 @@ $resultRek = $rekognitionClient->detectLabels([
         //'Bytes' => $picture,
         'S3Object' => [
             'Bucket' => 'alegrium-www',
-            'Name' => "gazillionaire/images/profile/{$facebook_id}.jpg",
+            'Name' => "gazillionaire/images/profile/skateboard_resized.jpg",
         ],
     ]
 ]);
