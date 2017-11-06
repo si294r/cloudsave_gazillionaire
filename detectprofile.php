@@ -55,6 +55,6 @@ $resultRek = $rekognitionClient->detectLabels([
 
 var_dump($resultRek);
 
-$data['rekognition'] = $resultRek;
+$data['rekognition'] = $resultRek->data;
 
 return $data;
