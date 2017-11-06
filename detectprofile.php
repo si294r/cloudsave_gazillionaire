@@ -59,5 +59,19 @@ $resultRek = $rekognitionClient->detectLabels([
 
 $data['Labels'] = $resultRek['Labels'];
 
+$resultRek = $rekognitionClient->detectFaces([
+    'Image' => [
+        //'Bytes' => $picture,
+        'S3Object' => [
+            'Bucket' => 'alegrium-www',
+            'Name' => "gazillionaire/images/profile/{$facebook_id}",
+        ],
+    ],
+//    'MaxLabels' => 5,
+//    'MinConfidence' => 80,
+]);
+
+$data['Faces'] = $resultRek['FaceDetails'];
+
 
 return $data;
