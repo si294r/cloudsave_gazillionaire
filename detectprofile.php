@@ -27,7 +27,7 @@ $s3ClientS3 = new S3Client(array(
 
 $resultS3 = $s3ClientS3->putObject(array(
     'Bucket' => "alegrium-www",
-    'Key'    => "gazillionaire/images/profile/$facebook_id",
+    'Key'    => "gazillionaire/images/profile/{$facebook_id}.jpg",
     'Body'   => $picture
 ));
 
@@ -48,7 +48,7 @@ $resultRek = $rekognitionClient->detectLabels([
         //'Bytes' => $picture,
         'S3Object' => [
             'Bucket' => 'alegrium-www',
-            'Name' => "gazillionaire/images/profile/$facebook_id",
+            'Name' => "gazillionaire/images/profile/{$facebook_id}.jpg",
         ],
     ]
 ]);
