@@ -25,7 +25,7 @@ $clientS3 = new S3Client(array(
     "version" => "2006-03-01"
 ));
 
-$result = $clientS3->$s3->putObject(array(
+$result = $clientS3->putObject(array(
     'Bucket' => "alegrium-www",
     'Key'    => "gazillionaire/images/profile/$facebook_id",
     'Body'   => $picture
