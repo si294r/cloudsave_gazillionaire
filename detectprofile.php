@@ -16,19 +16,37 @@ if ($facebook_id == "") {
 
 $picture = file_get_contents("https://graph.facebook.com/v2.10/$facebook_id/picture");
 
-$clientS3 = new S3Client(array(
+//$s3ClientS3 = new S3Client(array(
+//    'credentials' => array(
+//        'key' => $aws_access_key_id,
+//        'secret' => $aws_secret_access_key
+//    ),
+//    "region" => "us-east-1",
+//    "version" => "2006-03-01"
+//));
+//
+//$result = $s3ClientS3->putObject(array(
+//    'Bucket' => "alegrium-www",
+//    'Key'    => "gazillionaire/images/profile/$facebook_id",
+//    'Body'   => $picture
+//));
+
+//var_dump($result);
+
+
+$rekognitionClient = new RekognitionClient(array(
     'credentials' => array(
         'key' => $aws_access_key_id,
         'secret' => $aws_secret_access_key
     ),
     "region" => "us-east-1",
-    "version" => "2006-03-01"
+    "version" => "2016-06-27"
 ));
 
-$result = $clientS3->putObject(array(
-    'Bucket' => "alegrium-www",
-    'Key'    => "gazillionaire/images/profile/$facebook_id",
-    'Body'   => $picture
-));
+$result = $rekognitionClient->detectLabels([
+    'Image' => [
+        'Bytes' => $picture
+    ]
+]);
 
 var_dump($result);
