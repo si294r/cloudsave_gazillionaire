@@ -53,4 +53,4 @@ $resultRek = $rekognitionClient->detectLabels([
     ]
 ]);
 
-var_dump($resultRek);
+return $resultRek->Labels;
