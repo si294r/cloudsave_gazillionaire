@@ -50,11 +50,25 @@ $resultRek = $rekognitionClient->detectLabels([
             'Bucket' => 'alegrium-www',
             'Name' => "gazillionaire/images/profile/skateboard_resized.jpg",
         ],
+    ],
+    'MaxLabels' => 5,
+    'MinConfidence' => 80,
+]);
+
+//print_r($resultRek);
+
+$data['Labels'] = $resultRek['Labels'];
+
+$resultRek = $rekognitionClient->detectFaces([
+    'Image' => [
+        //'Bytes' => $picture,
+        'S3Object' => [
+            'Bucket' => 'alegrium-www',
+            'Name' => "gazillionaire/images/profile/skateboard_resized.jpg",
+        ],
     ]
 ]);
 
-print_r($resultRek);
-
-$data['rekognition'] = $resultRek['Labels'];
+$data['FaceDetails'] = $resultRek['FaceDetails'];
 
 return $data;
