@@ -44,6 +44,7 @@ $rekognitionClient = new RekognitionClient(array(
 ));
 
 $resultRek = $rekognitionClient->detectLabels([
+    'Attributes' => ['ALL'],
     'Image' => [
         //'Bytes' => $picture,
         'S3Object' => [
@@ -60,6 +61,7 @@ $resultRek = $rekognitionClient->detectLabels([
 $data['Labels'] = $resultRek['Labels'];
 
 $resultRek = $rekognitionClient->detectFaces([
+    'Attributes' => ['ALL'],
     'Image' => [
         //'Bytes' => $picture,
         'S3Object' => [
