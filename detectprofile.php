@@ -2,6 +2,7 @@
 
 require '/var/www/vendor/autoload.php';
 include '/var/www/redshift-config2.php';
+include 'config.php';
 
 use Aws\S3\S3Client;
 use Aws\Rekognition\RekognitionClient;
@@ -14,8 +15,14 @@ if ($facebook_id == "") {
     return array("error" => 1, "message" => "facebook_id is required");
 }
 
+/* 
+ * get picture from facebook
+ */
 $picture = file_get_contents("https://graph.facebook.com/v2.10/$facebook_id/picture?width=1000");
 
+/*
+ * update picture to AWS S3
+ */
 $s3ClientS3 = new S3Client(array(
     'credentials' => array(
         'key' => $aws_access_key_id,
@@ -27,13 +34,15 @@ $s3ClientS3 = new S3Client(array(
 
 $resultS3 = $s3ClientS3->putObject(array(
     'Bucket' => "alegrium-www",
-    'Key'    => "gazillionaire/images/profile/{$facebook_id}",
+    'Key'    => "$aws_s3_appname/images/profile/{$facebook_id}",
     'Body'   => $picture
 ));
 
 //var_dump($result);
 
-
+/*    
+ * detect faces with AWS Rekognition
+ */  
 $rekognitionClient = new RekognitionClient(array(
     'credentials' => array(
         'key' => $aws_access_key_id,
@@ -49,7 +58,7 @@ $resultRek = $rekognitionClient->detectFaces([
         //'Bytes' => $picture,
         'S3Object' => [
             'Bucket' => 'alegrium-www',
-            'Name' => "gazillionaire/images/profile/{$facebook_id}",
+            'Name' => "$aws_s3_appname/images/profile/{$facebook_id}",
         ],
     ],
 //    'MaxLabels' => 5,
@@ -59,6 +68,9 @@ $resultRek = $rekognitionClient->detectFaces([
 $data['Faces'] = $resultRek['FaceDetails'];
 $data['CountFaces'] = count($data['Faces']);
 
+/*
+ * if detect faces null, try detect labels
+ */
 if ($data['CountFaces'] == 0) { 
     $resultRek = $rekognitionClient->detectLabels([
         'Attributes' => ['ALL'],
@@ -66,7 +78,7 @@ if ($data['CountFaces'] == 0) {
             //'Bytes' => $picture,
             'S3Object' => [
                 'Bucket' => 'alegrium-www',
-                'Name' => "gazillionaire/images/profile/{$facebook_id}",
+                'Name' => "$aws_s3_appname/images/profile/{$facebook_id}",
             ],
         ],
     //    'MaxLabels' => 5,
@@ -74,12 +86,9 @@ if ($data['CountFaces'] == 0) {
     ]);
 
     //print_r($resultRek);
-    $data['Labels'] = $resultRek['Labels'];
-    
-} else {
-    
-    $data['Labels'] = array();
-    
+    $data['Labels'] = $resultRek['Labels'];    
+} else {    
+    $data['Labels'] = array();    
 }
 
 return $data;
