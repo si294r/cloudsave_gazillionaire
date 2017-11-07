@@ -43,23 +43,6 @@ $rekognitionClient = new RekognitionClient(array(
     "version" => "2016-06-27"
 ));
 
-//$resultRek = $rekognitionClient->detectLabels([
-//    'Attributes' => ['ALL'],
-//    'Image' => [
-//        //'Bytes' => $picture,
-//        'S3Object' => [
-//            'Bucket' => 'alegrium-www',
-//            'Name' => "gazillionaire/images/profile/{$facebook_id}",
-//        ],
-//    ],
-////    'MaxLabels' => 5,
-////    'MinConfidence' => 80,
-//]);
-//
-////print_r($resultRek);
-//
-//$data['Labels'] = $resultRek['Labels'];
-
 $resultRek = $rekognitionClient->detectFaces([
     'Attributes' => ['ALL'],
     'Image' => [
@@ -75,5 +58,27 @@ $resultRek = $rekognitionClient->detectFaces([
 
 $data['Faces'] = $resultRek['FaceDetails'];
 
+if (count($data['Faces']) == 0) { 
+    $resultRek = $rekognitionClient->detectLabels([
+        'Attributes' => ['ALL'],
+        'Image' => [
+            //'Bytes' => $picture,
+            'S3Object' => [
+                'Bucket' => 'alegrium-www',
+                'Name' => "gazillionaire/images/profile/{$facebook_id}",
+            ],
+        ],
+    //    'MaxLabels' => 5,
+    //    'MinConfidence' => 80,
+    ]);
+
+    //print_r($resultRek);
+    $data['Labels'] = $resultRek['Labels'];
+    
+} else {
+    
+    $data['Labels'] = array();
+    
+}
 
 return $data;
