@@ -57,8 +57,9 @@ $resultRek = $rekognitionClient->detectFaces([
 ]);
 
 $data['Faces'] = $resultRek['FaceDetails'];
+$data['CountFaces'] = count($data['Faces']);
 
-if (count($data['Faces']) == 0) { 
+if ($data['CountFaces'] == 0) { 
     $resultRek = $rekognitionClient->detectLabels([
         'Attributes' => ['ALL'],
         'Image' => [
