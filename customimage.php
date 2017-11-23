@@ -16,10 +16,11 @@ $background_image = file_get_contents("https://s3.amazonaws.com/alegrium-www/gaz
 $bg = imagecreatefromstring($background_image);
 $pp = imagecreatefromstring($profile_picture);
 
-//imagecopymerge($bg, $pp, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct);
+//imagecopymerge($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct)
 imagecopymerge($bg, $pp, 50, 100, 0, 0, imagesx($pp), imagesy($pp), 0);
 
 header('Content-type: image/jpeg');
 
 imagejpeg($bg);
 imagedestroy($bg);
+imagedestroy($pp);
