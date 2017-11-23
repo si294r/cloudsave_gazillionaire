@@ -2,6 +2,7 @@
 
 
 $facebook_id = $_GET['fb'];
+$show_pp = $_GET['pp'];
 
 /* 
  * get profile picture from facebook
@@ -21,6 +22,11 @@ imagecopymerge($bg, $pp, 50, 100, 0, 0, imagesx($pp), imagesy($pp), 0);
 
 header('Content-type: image/jpeg');
 
-imagejpeg($bg);
+if ($show_pp == "1") {
+    imagejpeg($pp);
+} else {
+    imagejpeg($bg);
+}
+
 imagedestroy($bg);
 imagedestroy($pp);
