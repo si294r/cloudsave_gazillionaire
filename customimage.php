@@ -18,7 +18,7 @@ $bg = imagecreatefromstring($background_image);
 $pp = imagecreatefromstring($profile_picture);
 
 //imagecopymerge($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct)
-imagecopymerge($bg, $pp, 0, 0, 0, 0, imagesx($pp), imagesy($pp), 50);
+imagecopymerge($bg, $pp, 10, 10, 0, 0, imagesx($pp), imagesy($pp), 0);
 
 header('Content-type: image/jpeg');
 
