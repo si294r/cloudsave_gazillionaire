@@ -25,6 +25,8 @@ imagecopymerge($bg, $pp, 50, 100, 0, 0, imagesx($pp), imagesy($pp), 100);
 $black = imagecolorallocate($bg, 0, 0, 0);
 $font_path = "/var/www/font/Roboto-Bold.ttf";
 imagettftext($bg, 25, 0, 75, 300, $black, $font_path, $text);
+imagettftext($bg, 25, 10, 175, 300, $black, $font_path, $text);
+
 
 header('Content-type: image/jpeg');
 
