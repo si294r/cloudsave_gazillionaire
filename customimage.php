@@ -3,6 +3,7 @@
 
 $facebook_id = $_GET['fb'];
 $show_pp = $_GET['pp'];
+$text = isset($_GET['txt']) ? $_GET['txt'] : "60.575 Novemsexagintillion";
 
 /* 
  * get profile picture from facebook
@@ -19,6 +20,11 @@ $pp = imagecreatefromstring($profile_picture);
 
 //imagecopymerge($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct)
 imagecopymerge($bg, $pp, 50, 100, 0, 0, imagesx($pp), imagesy($pp), 100);
+
+// Print Text On Image
+$black = imagecolorallocate($bg, 0, 0, 0);
+$font_path = "/var/www/font/Roboto-Bold.ttf";
+imagettftext($bg, 25, 0, 75, 300, $black, $font_path, $text);
 
 header('Content-type: image/jpeg');
 
